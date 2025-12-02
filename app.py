@@ -186,11 +186,10 @@ HTML_CONTENT = """
 
 def extract_citations(text):
     citations = []
-    # Regex updated to capture page/paragraph in groups 3 and 6
     pattern = re.compile(
-        r'\(([A-Za-z’]+(?:, [A-Za-z’]+)*(?:,? & [A-Za-z’]+)?(?: et al\.)?),? (\d{4}|n\.d\.)(?:, (p\. \d+|para\. \d+))?\)'  # Groups 1,2,3
+        r'\(([A-Za-z’]+(?:, [A-Za-z’]+)*(?:,? & [A-Za-z’]+)?(?: et al\.)?),? (\d{4}|n\.d\.)(?:, (p\. \d+|para\. \d+))?\)'
         r'|'  # OR
-        r'\b([A-Za-z’]+(?:, [A-Za-z’]+)*(?:,? & [A-Za-z’]+)?(?: et al\.)?)\s*\((\d{4}|n\.d\.)(?:, (p\. \d+|para\. \d+))?\)',  # Groups 4,5,6
+        r'\b([A-Za-z’]+(?:, [A-Za-z’]+)*(?:,? & [A-Za-z’]+)?(?: et al\.)?)\s*\((\d{4}|n\.d\.)(?:, (p\. \d+|para\. \d+))?\)', 
         re.IGNORECASE
     )
     matches = pattern.findall(text)
@@ -201,7 +200,7 @@ def extract_citations(text):
             authors = match[0].strip()
             year = match[1].strip()
             page = match[2].strip() if match[2] else ''
-        else:  # Second alternative (groups 4,5,6)
+        else: 
             authors = match[3].strip()
             year = match[4].strip()
             page = match[5].strip() if match[5] else ''
